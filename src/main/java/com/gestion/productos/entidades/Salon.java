@@ -25,4 +25,13 @@ public class Salon {
     @Column( name ="descripcion",nullable = false, length = 200 )
     private String descripcion ;
 
+    @Override
+    public String toString() {
+        return "Salon{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", capacidad=" + capacidad +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
+    }
 }

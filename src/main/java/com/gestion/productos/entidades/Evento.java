@@ -28,9 +28,18 @@ public class Evento {
     @NonNull
     private Integer invitados ;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "salon_id" , referencedColumnName = "id")
     private Salon salon;
 
-
+    @Override
+    public String toString() {
+        return "Evento{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", fecha=" + fecha +
+                ", invitados=" + invitados +
+                ", salon=" + salon +
+                '}';
+    }
 }
