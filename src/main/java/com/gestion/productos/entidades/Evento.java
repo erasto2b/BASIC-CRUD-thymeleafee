@@ -42,4 +42,5 @@ public class Evento {
                 ", salon=" + salon +
                 '}';
     }
+
 }
