@@ -61,6 +61,8 @@ public class EventoControlador {
         ModelAndView modelo = new ModelAndView("eventos/editar_evento");
         Evento evento = eventoServicio.get(id);
         List<Salon> salones = salonServicio.salonList();
+
+
         modelo.addObject("salones", salones);
         modelo.addObject("evento",evento);
         return modelo ;
