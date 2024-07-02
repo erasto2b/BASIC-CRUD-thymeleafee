@@ -46,8 +46,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-<<<<<<< HEAD
-=======
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -64,7 +62,7 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.3.0</version>
         </dependency>
->>>>>>> cc86460bda753b6e092061409c63ba40eebd85d3
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -80,8 +78,4 @@
             </plugin>
         </plugins>
     </build>
-<<<<<<< HEAD
-
-=======
->>>>>>> cc86460bda753b6e092061409c63ba40eebd85d3
 </project>
