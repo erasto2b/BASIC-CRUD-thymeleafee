@@ -22,7 +22,7 @@
 
 <div class = "container">
     <div class="row">
-        <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+        <div class ="col-lg-7 col-md-7 col-sm-7 container justify-content-center card">
          <h1 class ="text-center">Editar evento</h1>
          <div class="card-body">
             <form th:action="@{/guardar}" th:object="${evento}" method="post">
@@ -52,9 +52,10 @@
                     <option value="">Seleccione un salón</option>
                     <option th:each="salon : ${salones}"
                             th:value="${salon.id}"
-                            th:text="${salon.nombre}">Salon Nombre</option>
+                            th:text="${salon.nombre} + ' capacidad:&nbsp;' + ${salon.capacidad} + ' descripcion:&nbsp;'+ ${salon.descripcion} "></option>
                 </select>
-
+                <br>
+                <br>
 
                 <div class="box-footer">
                  <button class="btn btn-success">Guardar</button>
