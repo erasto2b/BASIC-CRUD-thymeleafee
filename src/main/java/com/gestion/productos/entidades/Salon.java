@@ -2,7 +2,7 @@ package com.gestion.productos.entidades;
 
 import jakarta.persistence.*;
 import lombok.*;
-
+import org.springframework.stereotype.Service;
 
 @Entity
 @NoArgsConstructor
@@ -25,13 +25,4 @@ public class Salon {
     @Column( name ="descripcion",nullable = false, length = 200 )
     private String descripcion ;
 
-    @Override
-    public String toString() {
-        return "Salon{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", capacidad=" + capacidad +
-                ", descripcion='" + descripcion + '\'' +
-                '}';
-    }
 }
