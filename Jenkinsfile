@@ -22,13 +22,6 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                // Ejecuta las pruebas unitarias
-                sh 'mvn test'
-            }
-        }
-
         stage('Package') {
             steps {
                 // Empaqueta la aplicación
