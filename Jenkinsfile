@@ -1,18 +1,11 @@
 pipeline {
-    pipeline {
-        agent {
-            docker {
-                image 'maven:3.8.6-openjdk-17'
-                args '-Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400'
-            }
-        }
+    agent any
 
     tools {
         // Instala JDK y Maven
         jdk 'JAVA_17'
         maven 'Maven 3'
     }
-
 
     stages {
         stage('Checkout') {
@@ -36,7 +29,13 @@ pipeline {
             }
         }
 
-
+        stage('Deploy') {
+            steps {
+                // Despliega la aplicación (ajusta según tu entorno)
+                sh 'echo "Deploying application..."'
+            }
+        }
+    }
 
     post {
         always {
