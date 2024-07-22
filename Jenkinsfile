@@ -13,6 +13,7 @@ pipeline {
         maven 'Maven 3'
     }
 
+
     stages {
         stage('Checkout') {
             steps {
