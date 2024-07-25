@@ -9,16 +9,22 @@ pipeline {
 
     stages {
 
-
-      stage('SCM') {
-        checkout scm
-      }
-      stage('SonarQube Analysis') {
-        def mvn = tool 'Default Maven';
-        withSonarQubeEnv() {
-          sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=test-jenkins -Dsonar.projectName='test-jenkins'"
+        stage('SCM') {
+            steps {
+                checkout scm
+            }
         }
-      }
+
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def mvn = tool 'Default Maven'
+                    withSonarQubeEnv() {
+                        sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=test-jenkins -Dsonar.projectName='test-jenkins'"
+                    }
+                }
+            }
+        }
 
         stage('Checkout') {
             steps {
@@ -47,8 +53,6 @@ pipeline {
                 sh 'echo "Deploying application..."'
             }
         }
-
-
     }
 
     post {
