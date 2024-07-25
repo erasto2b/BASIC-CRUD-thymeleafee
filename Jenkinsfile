@@ -7,30 +7,7 @@ pipeline {
         maven 'Maven 3'
     }
 
-    environment {
-        // Variables de entorno
-        GIT_TOOL = 'Default' // Asegúrate de que esta es la instalación de Git configurada en Jenkins
-        MAVEN_TOOL = tool name: 'Default Maven', type: 'maven'
-    }
-
     stages {
-
-        stage('SCM') {
-            steps {
-                checkout scm
-            }
-        }
-
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    withSonarQubeEnv() {
-                        sh "${MAVEN_TOOL}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=test-jenkins -Dsonar.projectName='test-jenkins'"
-                    }
-                }
-            }
-        }
-
         stage('Checkout') {
             steps {
                 // Clona el repositorio desde GitHub
