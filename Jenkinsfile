@@ -9,27 +9,22 @@ pipeline {
 
     environment {
         // Variables de entorno
-        MAVEN_TOOL = tool name: 'Default Maven', type: 'maven'
+        MAVEN_TOOL = tool name: 'Maven', type: 'maven'
     }
 
     stages {
-     node{
-        stage('SCM') {
-            steps {
-                checkout scm
-            }
-        }
 
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    withSonarQubeEnv('SonarQube') {  // Asegúrate de reemplazar 'SonarQube' con el nombre real de tu instalación de SonarQube en Jenkins
-                        sh "${MAVEN_TOOL}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=test-jenkins -Dsonar.projectName='test-jenkins'"
-                    }
-                }
+          node {
+            stage('SCM') {
+              checkout scm
+            }
+            stage('SonarQube Analysis') {
+              def mvn = tool 'Maven';
+              withSonarQubeEnv() {
+                sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=test-jenkins -Dsonar.projectName='test-jenkins'"
+              }
             }
           }
-        }
 
         stage('Checkout') {
             steps {
