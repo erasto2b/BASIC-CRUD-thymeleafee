@@ -15,7 +15,7 @@ pipeline {
               checkout scm
             }
             stage('SonarQube Analysis') {
-              def mvn = tool 'Maven';
+              def mvn = tool 'Maven 3';
               withSonarQubeEnv() {
                 sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=test-jenkins -Dsonar.projectName='test-jenkins'"
               }
