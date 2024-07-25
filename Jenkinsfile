@@ -15,6 +15,12 @@ pipeline {
             }
         }
 
+          stage('SonarQube Analysis') {
+                withSonarQubeEnv() {
+              sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=test-jenkins -Dsonar.projectName='test-jenkins'"
+              }
+          }
+
         stage('Build') {
             steps {
                 // Compila el proyecto usando Maven
