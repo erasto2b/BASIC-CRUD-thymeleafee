@@ -7,10 +7,6 @@ pipeline {
         maven 'Maven 3'
     }
 
-    environment {
-        // Variables de entorno
-        MAVEN_TOOL = tool name: 'maven', type: 'maven'
-    }
 
     stages {
 
