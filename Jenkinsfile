@@ -59,19 +59,6 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            // Publica los resultados de la prueba
-            junit 'target/surefire-reports/*.xml'
-        }
-        success {
-            // Notifica en caso de éxito
-            echo 'Build and tests succeeded!'
-        }
-        failure {
-            // Notifica en caso de fallo
-            echo 'Build or tests failed.'
-        }
-    }
+
 }
 
