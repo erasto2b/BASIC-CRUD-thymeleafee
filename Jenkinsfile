@@ -35,6 +35,13 @@ pipeline {
                 sh 'echo "Deploying application..."'
             }
         }
+
+        stage('SonarQube Analysis') {
+            def mvn = tool 'Default Maven';
+            withSonarQubeEnv() {
+              sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=test-jenkins -Dsonar.projectName='test-jenkins'"
+            }
+          }
     }
 
     post {
