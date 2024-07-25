@@ -9,11 +9,12 @@ pipeline {
 
     stages {
 
-        stage('SCM') {
-            steps {
-                checkout scm
-            }
-        }
+    stage('Checkout') {
+             steps {
+                 // Clona el repositorio desde GitHub
+                 git 'https://github.com/colombo1986/BASIC-CRUD-thymeleaf.git'
+             }
+         }
 
         stage('SonarQube Analysis') {
             steps {
@@ -26,12 +27,7 @@ pipeline {
             }
         }
 
-        stage('Checkout') {
-            steps {
-                // Clona el repositorio desde GitHub
-                git 'https://github.com/colombo1986/BASIC-CRUD-thymeleaf.git'
-            }
-        }
+
 
         stage('Build') {
             steps {
