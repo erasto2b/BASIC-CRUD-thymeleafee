@@ -15,9 +15,10 @@ pipeline {
             }
         }
 
-          stage('SonarQube Analysis') {
-                withSonarQubeEnv() {
-              sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=test-jenkins -Dsonar.projectName='test-jenkins'"
+     stage('SonarQube Analysis') {
+         steps {
+                 withSonarQubeEnv()
+                sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=test-jenkins -Dsonar.projectName='test-jenkins'"
               }
           }
 
