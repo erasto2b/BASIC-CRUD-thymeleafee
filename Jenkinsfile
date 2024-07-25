@@ -9,7 +9,7 @@ pipeline {
 
     environment {
         // Variables de entorno
-        MAVEN_TOOL = tool name: 'Default Maven', type: 'maven'
+        MAVEN_TOOL = tool name: 'Maven', type: 'maven'
     }
 
     stages {
