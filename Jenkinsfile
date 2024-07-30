@@ -9,17 +9,28 @@ pipeline {
             }
         }
 
-          node {
-              stage('SCM') {
-                  checkout scm
-              }
-              stage('SonarQube Analysis') {
-                  def mvnHome = tool name: 'Maven 3.8.7', type: 'hudson.tasks.Maven$MavenInstallation'
-                  withSonarQubeEnv('SonarQube') {
-                      sh "${mvnHome}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=manage-eventos-app -Dsonar.projectName='manage-eventos-app'"
-                  }
-              }
-          }
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'sonar-scanner'
+                    withSonarQubeEnv('sonar-scanner') {
+                        sh """
+                            ${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=manage-eventos-app \
+                            -Dsonar.java.binaries=target/classes
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 3, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
 
 
         stage('Build') {
