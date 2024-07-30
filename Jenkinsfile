@@ -12,10 +12,10 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    def scannerHome = tool 'sonar-scanner'
-                    withSonarQubeEnv('sonar-scanner') {
+                    def sonarRunner = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                    withSonarQubeEnv('SonarQubeServer') {
                         sh """
-                            ${scannerHome}/bin/sonar-scanner \
+                            ${sonarRunner}/bin/sonar-scanner \
                             -Dsonar.projectKey=manage-eventos-app \
                             -Dsonar.java.binaries=target/classes
                         """
