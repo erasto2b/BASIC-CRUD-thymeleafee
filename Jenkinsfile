@@ -1,7 +1,6 @@
 pipeline {
     agent any
 
-
     stages {
         stage('Checkout') {
             steps {
@@ -9,6 +8,19 @@ pipeline {
                 git 'https://github.com/colombo1986/BASIC-CRUD-thymeleaf.git'
             }
         }
+
+          node {
+              stage('SCM') {
+                  checkout scm
+              }
+              stage('SonarQube Analysis') {
+                  def mvnHome = tool name: 'Maven 3.8.7', type: 'hudson.tasks.Maven$MavenInstallation'
+                  withSonarQubeEnv('SonarQube') {
+                      sh "${mvnHome}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=manage-eventos-app -Dsonar.projectName='manage-eventos-app'"
+                  }
+              }
+          }
+
 
         stage('Build') {
             steps {
