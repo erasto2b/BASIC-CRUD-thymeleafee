@@ -1,6 +1,13 @@
 pipeline {
     agent any
 
+    environment {
+            SLACK_CHANNEL = '#aplicación-de-eventos'
+            JOB_NAME = 'JOB_NAME'
+            BUILD_NUMBER = '1.0'
+            BUILD_URL = 'www.app-manage.com'
+        }
+
     stages {
         stage('Checkout') {
             steps {
@@ -74,9 +81,9 @@ pipeline {
      post {
          always {
              echo 'Notificación a Slack'
-             slackSend channel: '#time-tracker-ci',
+             slackSend channel: '#aplicación-de-eventos',
                        color: COLOR_MAP[currentBuild.currentResult],
-                       message: "*${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n  
+                       message: "*${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n
       Más información en: ${env.BUILD_URL}*"
          }
      }
