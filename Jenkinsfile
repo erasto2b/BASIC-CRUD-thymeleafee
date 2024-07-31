@@ -65,19 +65,20 @@ pipeline {
 
 
 
-    post {
-        always {
-            // Publica los resultados de la prueba
-            junit 'target/surefire-reports/*.xml'
-        }
-        success {
-            // Notifica en caso de éxito
-            echo 'Build and tests succeeded!'
-        }
-        failure {
-            // Notifica en caso de fallo
-            echo 'Build or tests failed.'
-        }
-    }
+     def COLOR_MAP = [
+         'SUCCESS': 'bueno',
+         'FAILURE': 'peligro'
+     ]
+
+     // Script de Notificación
+     post {
+         always {
+             echo 'Notificación a Slack'
+             slackSend channel: '#time-tracker-ci',
+                       color: COLOR_MAP[currentBuild.currentResult],
+                       message: "*${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n  
+      Más información en: ${env.BUILD_URL}*"
+         }
+     }
 
 }
