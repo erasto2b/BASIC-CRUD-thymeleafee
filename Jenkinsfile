@@ -76,6 +76,6 @@ pipeline {
          'SUCCESS': 'bueno',
          'FAILURE': 'peligro'
      ]
-
+<<<<<<< HEAD
     
 }
