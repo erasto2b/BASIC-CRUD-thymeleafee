@@ -12,18 +12,18 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Clona el repositorio desde GitHub
-                git 'https://github.com/colombo1986/BASIC-CRUD-thymeleaf.git'
+                git 'https://github.com/erasto2b/BASIC-CRUD-thymeleafee.git'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    def sonarRunner = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                    withSonarQubeEnv('SonarQubeServer') {
+                    def sonarRunner = tool name: 'SonarqubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                    withSonarQubeEnv('SonaequebeServer') {
                         sh """
                             ${sonarRunner}/bin/sonar-scanner \
-                            -Dsonar.projectKey=manage-eventos-app \
+                            -Dsonar.projectKey=Projecto_jenkins \
                             -Dsonar.java.binaries=target/classes
                         """
                     }
