@@ -2,17 +2,24 @@ pipeline {
     agent any
 
     environment {
-            SLACK_CHANNEL = '#aplicación-de-eventos'
-            JOB_NAME = 'JOB_NAME'
-            BUILD_NUMBER = '1.0'
-            BUILD_URL = 'www.app-manage.com'
-        }
+        SLACK_CHANNEL = '#aplicación-de-eventos'
+        JOB_NAME = 'JOB_NAME'
+        BUILD_NUMBER = '1.0'
+        BUILD_URL = 'www.app-manage.com'
+    }
 
     stages {
         stage('Checkout') {
             steps {
                 // Clona el repositorio desde GitHub
                 git 'https://github.com/erasto2b/BASIC-CRUD-thymeleafee.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Compila el proyecto usando Maven
+                sh 'mvn clean compile'
             }
         }
 
@@ -32,20 +39,11 @@ pipeline {
             }
         }
 
-
         stage('Quality Gate') {
             steps {
                 timeout(time: 3, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
-            }
-        }
-
-
-        stage('Build') {
-            steps {
-                // Compila el proyecto usando Maven
-                sh 'mvn clean compile'
             }
         }
 
@@ -70,5 +68,4 @@ pipeline {
             }
         }
     }
-
 }
