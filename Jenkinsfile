@@ -16,11 +16,19 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
+         stage('SonarQube Analysis') {
             steps {
                 script {
-                    withSonarQubeEnv('SonaequebeServer') {
-                        sh 'sonar-scanner -Dsonar.projectKey=Projecto_jenkins -Dsonar.java.binaries=target/classes'
+                    // Usa el SonarQube Scanner instalado
+                    def sonarRunner = tool name: 'SonarqubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                    // Ejecuta el análisis de SonarQube
+                    withSonarQubeEnv('SonaQubeServer') {
+                        sh """
+                            ${sonarRunner}/bin/sonar-scanner \
+                            -Dsonar.projectKey=Projecto_jenkins \
+                            -Dsonar.sources=src \
+                            -Dsonar.java.binaries=target/classes
+                        """
                     }
                 }
             }
@@ -63,4 +71,5 @@ pipeline {
         }
     }
 }
+
 
