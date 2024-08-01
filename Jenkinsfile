@@ -1,75 +1,88 @@
-pipeline {
-    agent any
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.3</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.gestion.productos</groupId>
+    <artifactId>gestion-eventos</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>gestion-eventos</name>
+    <description>gestion-eventos</description>
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
-    environment {
-        SLACK_CHANNEL = '#aplicación-de-eventos'
-        JOB_NAME = 'JOB_NAME'
-        BUILD_NUMBER = '1.0'
-        BUILD_URL = 'www.app-manage.com'
-    }
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
-    stages {
-        stage('Checkout') {
-            steps {
-                // Clona el repositorio desde GitHub
-                git 'https://github.com/erasto2b/BASIC-CRUD-thymeleafee.git'
-            }
-        }
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
 
-         stage('SonarQube Analysis') {
-            steps {
-                script {
-                    // Usa el SonarQube Scanner instalado
-                    def sonarRunner = tool name: 'SonarqubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                    // Ejecuta el análisis de SonarQube
-                    withSonarQubeEnv('SonaQubeServer') {
-                        sh """
-                            ${sonarRunner}/bin/sonar-scanner \
-                            -Dsonar.projectKey=Projecto_jenkins \
-                            -Dsonar.sources=src \
-                            -Dsonar.java.binaries=target/classes
-                        """
-                    }
-                }
-            }
-        }
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.3.0</version>
+        </dependency>
 
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 3, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-        stage('Build') {
-            steps {
-                // Compila el proyecto usando Maven
-                sh 'mvn clean compile'
-            }
-        }
+    </dependencies>
 
-        stage('Test') {
-            steps {
-                // Ejecuta las pruebas unitarias
-                sh 'mvn test'
-            }
-        }
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
 
-        stage('Package') {
-            steps {
-                // Empaqueta la aplicación
-                sh 'mvn package'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                // Despliega la aplicación (ajusta según tu entorno)
-                sh 'echo "Deploying application..."'
-            }
-        }
-    }
-}
-
-
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.1.2184</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
