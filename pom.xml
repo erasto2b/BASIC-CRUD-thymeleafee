@@ -11,8 +11,8 @@
     <groupId>com.gestion.productos</groupId>
     <artifactId>gestion-eventos</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>gestion-eventos</name>
-    <description>gestion-eventos</description>
+    <name>JENKIS-SONAQUVE</name>
+    <description>JENKIS-SONAQUVE</description>
     <properties>
         <java.version>17</java.version>
     </properties>
