@@ -58,14 +58,5 @@ pipeline {
                 sh 'echo "Deploying application..."'
             }
         }
-    }
-
-
-
-     def COLOR_MAP = [
-         'SUCCESS': 'bueno',
-         'FAILURE': 'peligro'
-     ]
-<<<<<<< HEAD
-    
+  }
 }
