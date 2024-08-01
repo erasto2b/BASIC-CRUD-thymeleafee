@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     environment {
-            SLACK_CHANNEL = '#aplicación-de-eventos'
-            JOB_NAME = 'JOB_NAME'
-            BUILD_NUMBER = '1.0'
-            BUILD_URL = 'www.app-manage.com'
-        }
+        SLACK_CHANNEL = '#aplicación-de-eventos'
+        JOB_NAME = 'JOB_NAME'
+        BUILD_NUMBER = '1.0'
+        BUILD_URL = 'www.app-manage.com'
+    }
 
     stages {
         stage('Checkout') {
@@ -19,14 +19,17 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    def sonarRunner = tool name: 'SonarqubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                     withSonarQubeEnv('SonaequebeServer') {
-                        sh """
-                            ${sonarRunner}/bin/sonar-scanner \
-                            -Dsonar.projectKey=Projecto_jenkins \
-                            -Dsonar.java.binaries=target/classes
-                        """
+                        sh 'sonar-scanner -Dsonar.projectKey=Projecto_jenkins -Dsonar.java.binaries=target/classes'
                     }
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 3, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
@@ -58,5 +61,6 @@ pipeline {
                 sh 'echo "Deploying application..."'
             }
         }
-  }
+    }
 }
+
