@@ -23,7 +23,7 @@ pipeline {
                     withSonarQubeEnv('SonaequebeServer') {
                         sh """
                             ${sonarRunner}/bin/sonar-scanner \
-                            -Dsonar.projectKey=Projecto_jenkins \
+                            -Dsonar.projectKey=Proyecto_jenkins \
                             -Dsonar.sources=src \
                             -Dsonar.java.binaries=target/classes
                         """
